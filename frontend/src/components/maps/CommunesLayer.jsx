@@ -1,14 +1,14 @@
 // src/components/maps/CommunesLayer.jsx
 // Composant pour afficher la couche des communes depuis le fichier GeoJSON
 import { useToast } from '@chakra-ui/react';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { GeoJSON, useMap } from 'react-leaflet';
 
-const CommunesLayer = ({ 
-  geoJsonData, 
+const CommunesLayer = ({
+  geoJsonData,
   visible = true,
   style = null,
-  onFeatureClick = null 
+  onFeatureClick = null
 }) => {
   const map = useMap();
   const toast = useToast();
@@ -20,7 +20,7 @@ const CommunesLayer = ({
     try {
       // Valider que c'est bien un FeatureCollection
       if (geoJsonData.type === 'FeatureCollection' && Array.isArray(geoJsonData.features)) {
-        
+
         // Vérifier que chaque feature est valide
         const validFeatures = geoJsonData.features.filter(feature => {
           if (!feature.geometry || !feature.geometry.type || !feature.geometry.coordinates) {
@@ -111,7 +111,7 @@ const CommunesLayer = ({
         const layer = e.target;
         layer.setStyle(style || defaultStyle);
       },
-      click: (e) => {
+      click: () => {
         if (onFeatureClick) {
           onFeatureClick(feature, layer);
         }
